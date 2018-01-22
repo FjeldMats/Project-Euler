@@ -1,4 +1,4 @@
-public class euer46 {
+public class euler46 {
 
 	public static void main(String[] args) {
 		
