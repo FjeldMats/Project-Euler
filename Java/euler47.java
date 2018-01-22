@@ -3,21 +3,23 @@ import java.util.ArrayList;
 public class euler47 {
 
 	public static void main(String[] args) {
-		
-		int upperLim = 646;
+	
 		int i = 2;
-		int previ = 0;
+		int previ = 1;
 		int inarow = 0;
 		
-		while(i<=upperLim) {
-			if(countPrimeFactors(findFactors(i)) >= 4) {
-				if(previ == i - 1) {
+		while(inarow <= 2) {
+			if(countPrimeFactors(findFactors(i)) >= 2) {
+				System.out.println(i+ " " + findFactors(i));
+				if(previ + 1 == i) {
 					inarow++;
-				}else {
+				}
+				else {
 					inarow = 0;
 				}
-				System.out.println(i+ " " + findFactors(i));
 			}
+			
+			
 			previ = i;
 			i++;
 		}
