@@ -13,6 +13,8 @@ public class euler47 {
 			if(countPrimeFactors(findFactors(i)) >= 4) {
 				if(previ == i - 1) {
 					inarow++;
+				}else {
+					inarow = 0;
 				}
 				System.out.println(i+ " " + findFactors(i));
 			}
