@@ -16,6 +16,7 @@ public class problem33 {
 				fraction.add(nums);
 			}
 		}
+		
 		int count = 0;
 		ArrayList<Integer> product = null;
 		int productOfNumerators = 1;
@@ -63,7 +64,6 @@ public class problem33 {
 			
 			return none;
 		}
-		
 	}
 	
 	public static ArrayList<Integer> simplified(int numerator, int denominator){

@@ -27,9 +27,6 @@ public class problem50 {
 		
 		System.out.println(currentSum);
 		
-	
-		
-		
 	}
 		
 	
