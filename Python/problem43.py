@@ -6,13 +6,13 @@ def listToNum(listOfNums):
         strNumber += str(listOfNums[i])
     return int(strNumber)
 
-def permutations():
+def permutations(num):
     allPer = []
-    nums = [0,1,2,3,4,5,6,7,8,9]
+    nums = list(str(num))
     nums.sort()
     index = 0
     while True:
-
+        print(nums)
         #Setp 1 biggest - i
         bigI = -1
         for i in range(0,len(nums)-1):
@@ -54,7 +54,8 @@ def permutations():
 if __name__  == "__main__":
 
     primes = [2,3,5,7,11,13,17]
-    lst = permutations()
+    lst = permutations(1234567890)
+    print(lst)
 
     for i in range(0,len(lst)):
         for j in range(0,len(str(lst[i]))):
