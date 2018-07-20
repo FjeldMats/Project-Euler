@@ -17,4 +17,4 @@ def e_cont_frac(n):
 
 a,b = contfrac_to_frac(e_cont_frac(100))
 
-print sumOfDigits(a)
+print (sumOfDigits(a))
