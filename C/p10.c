@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#define LIMIT 2000000
+
 int isPrime(unsigned long value){
   if(value  == 1 || value == 0){
     return 0;
@@ -14,11 +14,16 @@ int isPrime(unsigned long value){
 }
 
 int main(){
-  unsigned int sum = 0;
-  for(unsigned int i = 1; i<LIMIT; i++){
+  unsigned long sum = 0;
+  for(unsigned int i = 2; i < 2000000; i++){
     if(isPrime(i) == 1){
       sum += i;
     }
-  }
+    if(i % 10000 == 0){
+      float progress = ((float)i/2000000.0)*100;
+      printf("sum: %lu, %% %f\n", sum, progress);
+    }
+    }
+
   printf("%lu\n", sum);
 }
