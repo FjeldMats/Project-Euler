@@ -17,7 +17,6 @@ int getNum(int row, int col){
 unsigned long rightH(int row, int col, int table[20][20], int len){
 
   if( ((row + len)>20) || (col+len)>20){
-    //printf("(%d, %d) skipped\n", row,col);
     return 1;
   }
 
@@ -25,61 +24,56 @@ unsigned long rightH(int row, int col, int table[20][20], int len){
   unsigned long prod = 1;
 
   for(int i=col; i<(len+col); i++){
-    //printf("%d\n",table[height][i]);
-    printf("%d, ", table[row][i]);
+    //printf("%d, ", table[row][i]);
     prod *= table[height][i];
     height++;
   }
-  printf(": %lu /\n", prod);
+  //printf(": %lu /\n", prod);
   return prod;
 }
 
 unsigned long leftH(int row, int col, int table[20][20], int len){
 
-  if(((row - len+1)<0) || (col+len)>20){
-    //printf("(%d, %d) skipped\n", row,col);
+  if(((row - len+1)<0) || (col+len)>20)
     return 1;
-  }
 
   int height = row;
   unsigned long prod = 1;
 
   for(int i=col; i<(len+col); i++){
-    //printf("%d\n",table[height][i]);
-    printf("%d, ", table[row][i]);
+    //printf("%d, ", table[row][i]);
     prod *= table[height][i];
     height--;
   }
-  printf(": %lu \\ \n", prod);
+  //printf(": %lu \\ \n", prod);
   return prod;
 }
 
 unsigned long vertical(int row, int col, int table[20][20], int len){
-  if((row + len)>20){
+  if((row + len)>20)
     return 1;
-  }
+
   unsigned long prod = 1;
 
   for(int i=row; i<(row+len); i++){
-    printf("%d, ", table[row][i]);
+    //printf("%d, ", table[row][i]);
     prod *= table[i][col];
   }
-  printf(": %lu |\n", prod);
+  //printf(": %lu |\n", prod);
   return prod;
 }
 
 unsigned long horizontal(int row, int col, int table[20][20], int len){
-  if((col+len)>20){
+  if((col+len)>20)
     return 1;
-  }
 
   unsigned long prod = 1;
 
   for(int i=col; i<(col+len); i++){
-    printf("%d, ", table[row][i]);
+    //printf("%d, ", table[row][i]);
     prod *= table[row][i];
   }
-  printf(": %lu -\n", prod);
+  //printf(": %lu -\n", prod);
   return prod;
 }
 
@@ -103,6 +97,7 @@ int main(){
 
   unsigned long largestProd = 0;
   int length = 4;
+
   //search
   for(int i = 0; i<20; i++){
     for(int j = 0; j<20; j++){
@@ -114,19 +109,5 @@ int main(){
         largestProd = b;
     }
   }
-  printf("%lu\n", largestProd);
-
-// print table
-/*
-  for(int i = 0; i<20; i++){
-    for(int j = 0; j<20; j++){
-      if(table[i][j]<9){
-        printf("0%d ", table[i][j]);
-      }else{
-        printf("%d ", table[i][j]);
-      }
-    }
-    printf("\n");
-  }
-  */
+  printf("awns: %lu\n", largestProd);
 }
