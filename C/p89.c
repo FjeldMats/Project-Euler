@@ -17,14 +17,33 @@ int lookupLetter(char l){
 
 int romanToInt(char romanNum[15]){
 
-    int numbers[15];
     int index = 0;
     int sum = 0;
 
     while(romanNum[index] != '\n'){
-        numbers[index] = lookupLetter(romanNum[index]);
-        //printf("%d \n", numbers[index]);
-        index++;
+
+        if(romanNum[index] == 'I' & ( romanNum[index + 1] == 'V' || romanNum[index + 1] == 'X')){
+            
+            sum+= lookupLetter(romanNum[index+1]) - lookupLetter(romanNum[index]);
+            index += 2;
+
+        }
+        else if(romanNum[index] == 'X' & ( romanNum[index + 1] == 'L' || romanNum[index + 1] == 'C')){
+            sum+= lookupLetter(romanNum[index+1]) - lookupLetter(romanNum[index]);
+            index += 2;
+
+        }
+        else if(romanNum[index] == 'C' & ( romanNum[index + 1] == 'D' || romanNum[index + 1] == 'M')){
+            sum+= lookupLetter(romanNum[index+1]) - lookupLetter(romanNum[index]);
+            index += 2;
+
+        }else{
+            sum += lookupLetter(romanNum[index]);
+            index++;
+
+        }
+
+        
     }
     //printf("\n");
 
@@ -47,11 +66,10 @@ int main(){
     int index = 0;
     while(fgets(str, 1000, fp) != NULL){
         strcpy(roman[index], str);
-        //printf("%s", str);
+        printf("%d <- %s", romanToInt(str), str);
         index++;
     }
     fclose(fp);
-    printf("\n");
 
     /*
     for(int i = 0;i<1000;i++){
@@ -59,7 +77,6 @@ int main(){
     }
     */
 
-    printf("%d\n", romanToInt("VI\n"));
     return 0;
 
 }
