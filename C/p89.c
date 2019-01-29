@@ -50,6 +50,38 @@ int romanToInt(char romanNum[15]){
     return sum;
 }
 
+char* minemalRomanNumeral(int n){
+
+    char *numeral[20] = malloc(20*sizeof(char));
+
+    // all roman numerals and subtractive combinations
+    char letters[13] = {'I', 'IV', 'V', 'IX', 'X', 'XL', 'L', 'XC', 'C', 'CD', 'D', 'CM', 'M'};
+    int nums[13]     = {1,    4,    5,  9,    10,   40,  50,  90,   100,  400 ,500, 900, 1000};
+
+     
+    int stringCouner = 0;
+    while(n != 0){
+        for(int i = 0; i<13; i++){
+            if(i == 12 && n > 1000){
+                n -= 1000;
+                numeral[stringCouner] = 'M';
+                stringCouner++;
+                break;
+            }
+            if(nums[i] > n){
+                n-= nums[i-1];
+                numeral[stringCouner] = letters[i-1];
+                stringCouner++;
+                break;
+            }
+        }
+    }
+
+    return *numeral;
+}
+
+
+
 int main(){
 
     FILE *fp;
@@ -76,6 +108,9 @@ int main(){
         printf("%s \b = %d\n", roman[i], romanToInt(roman[i]));
     }
     */
+
+   printf("\n");
+   printf("350 -> %s", minemalRomanNumeral(350));
 
     return 0;
 
