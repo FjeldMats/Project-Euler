@@ -1,60 +1,80 @@
+"""
+Problem 60:
+
+The primes 3, 7, 109, and 673, are quite remarkable. By taking any two primes and concatenating them in any order the result will always be prime. For example, taking 7 and 109, both 7109 and 1097 are prime. The sum of these four primes, 792, represents the lowest sum for a set of four primes with this property.
+
+Find the lowest sum for a set of five primes for which any two primes concatenate to produce another prime.
+"""
+
 import math
-import itertools
-def isPrime(n):
-    if(n == 2):
-        return True
+import time
 
-    for i in range(2, int(math.sqrt(n)+2)):
-        if(n % i == 0):
+def memoize(f):
+    memory = {}
+    def inner(num):
+        if num not in memory:
+            memory[num] = f(num)
+        return memory[num]
+    return inner
+
+@memoize
+def isPrime(num):
+    if num < 2:
+        return False
+    for i in range(2,math.floor(math.sqrt(num))+1):
+        if(num % i == 0):
             return False
+    return True
+
+def genPrime(n):
+    "generate all primes below n"
+
+    number_of_primes = 0
+    num = 0
+    while number_of_primes < n:
+        if isPrime(num):
+            number_of_primes += 1
+            yield num
+        num += 1
+
+def combine(n1, n2):
+    return int(float("%s%s"%(str(n1),str(n2))))
+
+
+start = time.time()
+primes = list(genPrime(1200))
+
+pairs = {}
+
+for prime1 in primes:
+    pairs[prime1] = []
+    for prime2 in primes:
+        if isPrime(combine(prime1,prime2)) and isPrime(combine(prime2,prime1)):
+            pairs[prime1].append(prime2)
+
+
+start_prime = 0
+numbers = [primes[start_prime]]
+
+def find_next_prime(pairs, numbers):
+    for prime in primes:
+        if all(x in pairs[prime] for x in numbers):
+            return prime
+
+
+while len(numbers) < 5:
+    if start_prime == len(primes)-1:
+        print("no answer")
+        break
+
+    next = find_next_prime(pairs, numbers)
+    if next == None:
+        start_prime += 1
+        numbers = [primes[start_prime]]
     else:
-        return True
-
-def combTuple(list):
-    tupels = []
-    for pair in itertools.combinations(list , 2):
-        tupels.append(pair)
-    return tupels
-
-def concat(a, b):
-    return int(str(a)+str(b))
-
-def allPrime(list):
-    for pair in combTuple(list):
-        if(isPrime(concat(pair[0], pair[1])) and isPrime(concat(pair[1], pair[0]))):
-            continue
-        else:
-            return False
-    else:
-        return True
-
-lowest = float('inf')
-
-primes = []
-for i in range(2,10000):
-    if(isPrime(i)):
-        primes.append(i)
-
-minval = 99999999999
-lim = len(primes)-1
-for a in range(lim):
-    for b in range(a+1, lim):
-        for c in range(b+1, lim):
-            print(a,b,c)
-            for d in range(c+1, lim):
-                for e in range(d+1, lim):
+        numbers.append(next)
 
 
-                    num1 = primes[a]
-                    num2 = primes[b]
-                    num3 = primes[c]
-                    num4 = primes[d]
-                    num5 = primes[e]
-
-                    numbers = [num1, num2, num3, num4, num5]
-
-                    if(allPrime(numbers)):
-                        if(sum(numbers)<lowset):
-                            lowest = sum(number)
-                            print(numbers, lowest)
-print("aws:",lowset)
+print(numbers, sum(numbers))
+end = time.time()
+print(end - start)
