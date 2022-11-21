@@ -1,20 +1,29 @@
-def contfrac_to_frac(seq):
-    num, den = 1, 0
-    for u in reversed(seq):
-        num, den = den + num*u, num
-    return num, den
+"""
+Cubic permutations (very unefficient)
+"""
+import itertools
 
-def sumOfDigits(n):
-    return sum(map(int,list(str(n))))
+def check_cube(num): 
+    # check if cubic root of num to the power of 3 is the number itself
+    return int(round(num ** (1. / 3))) ** 3 == num
 
-fraction = [2]
+def get_all_permutations(num):
+    # get all permutations of num
+    return set(int(''.join(p)) for p in itertools.permutations(str(num)) if len(str(int(''.join(p)))) == len(str(num)))
 
-def e_cont_frac(n):
+def cubes(num):
+    # cubes that are permutations of num
+    return [n for n in get_all_permutations(num) if check_cube(n)]
 
-    seq = [2 * (i+1) // 3 if i%3 == 2 else 1 for i in range(n)]
-    seq[0] += 1
-    return seq
+def print_cubes(nums):
+    for num in nums:
+        cube = int(round(num ** (1. / 3)))
+        print(f"{cube}^3 = {num}", end = ',  ')
+    print()
 
-a,b = contfrac_to_frac(e_cont_frac(100))
 
-print (sumOfDigits(a))
+for i in range(0,10000):
+    c = cubes(i**3)
+    if len(c) >= 5:
+        print_cubes(c)
+        break
